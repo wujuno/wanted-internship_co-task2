@@ -75,12 +75,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       ) : (
         <FaSpinner className="spinner" />
       )}
-      {recommendedData && (
-        <SearchRecomendedBox
-          debouncedInputText={debouncedInputText}
-          data={recommendedData}
-        />
-      )}
+      {recommendedData && <SearchRecomendedBox data={recommendedData} />}
     </form>
   );
 };
