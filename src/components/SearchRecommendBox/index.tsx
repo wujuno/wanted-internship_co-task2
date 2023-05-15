@@ -10,11 +10,13 @@ type SearchRecomendedBoxProps = {
   setRecommendedData: React.Dispatch<
     React.SetStateAction<RecommendedDataType | undefined>
   >;
+  setInputText: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const SearchRecomendedBox: React.FC<SearchRecomendedBoxProps> = ({
   recommendedData,
   setRecommendedData,
+  setInputText,
 }) => {
   const { scrollRef, scrollEnd } = useScrollEnd();
   const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +62,11 @@ export const SearchRecomendedBox: React.FC<SearchRecomendedBoxProps> = ({
 
   return (
     <div ref={scrollRef} className="recommend_container">
-      <RecommendedList showedResults={showedResults} keyword={keyword} />
+      <RecommendedList
+        showedResults={showedResults}
+        keyword={keyword}
+        setInputText={setInputText}
+      />
       <BottomItem
         showedResults={showedResults}
         totalResults={totalResults}

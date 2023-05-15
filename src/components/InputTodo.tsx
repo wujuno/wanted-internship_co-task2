@@ -24,9 +24,10 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   }, [setFocus]);
 
   const handleSubmit = useCallback(
-    async (e: any) => {
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
       try {
-        e.preventDefault();
         setIsLoading(true);
 
         const trimmed = inputText.trim();
@@ -79,6 +80,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         <SearchRecomendedBox
           recommendedData={recommendedData}
           setRecommendedData={setRecommendedData}
+          setInputText={setInputText}
         />
       )}
     </form>
