@@ -1,29 +1,21 @@
 import { RecommendedDataType } from "@/types/todos";
-import { useEffect, useState } from "react";
 import { FaSpinner, FaEllipsisH } from "react-icons/fa";
 
 type BottomItemProps = {
   data: RecommendedDataType;
   scrollEnd: boolean;
 };
+const NONE = 0;
 
 export const BottomItem: React.FC<BottomItemProps> = ({ data, scrollEnd }) => {
-  const showedResults = data.qty;
-  const totalResults = data.total;
-
-  const hasResult = (showedResults: number): boolean => {
-    const NONE = 0;
-    return showedResults !== NONE;
-  };
-
-  const hasMore = (showedResults: number, totalResults: number): boolean => {
-    return totalResults > showedResults;
-  };
+  const { qty: showedResults, total: totalResults } = data;
+  const hasResult = showedResults !== NONE;
+  const hasMore = showedResults < totalResults;
 
   return (
     <>
-      {hasResult(showedResults) ? (
-        hasMore(showedResults, totalResults) ? (
+      {hasResult ? (
+        hasMore ? (
           scrollEnd ? (
             <FaSpinner className="spinner" />
           ) : (

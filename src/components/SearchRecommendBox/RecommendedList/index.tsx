@@ -1,19 +1,17 @@
 import { RecommendedDataType } from "@/types/todos";
-import { getHilgthedText } from "@/utils/todos";
+import { RecommendItem } from "./RecommendItem";
 
 type RecommendedListProps = {
   data: RecommendedDataType;
 };
 
 export const RecommendedList: React.FC<RecommendedListProps> = ({ data }) => {
-  const recommendedResults = data.result;
-  const keyword = data.q;
+  const { result: recommendedResults, q: keyword } = data;
+
   return (
     <>
-      {recommendedResults.map((list, index) => (
-        <button onClick={(e) => e.preventDefault()} key={index}>
-          <p>{getHilgthedText(list, keyword)}</p>
-        </button>
+      {recommendedResults.map((result, index) => (
+        <RecommendItem key={index} text={result} keyword={keyword} />
       ))}
     </>
   );
