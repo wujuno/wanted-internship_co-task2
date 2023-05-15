@@ -1,13 +1,11 @@
 import { FaPlusCircle, FaSpinner } from "react-icons/fa";
 import { useCallback, useEffect, useState } from "react";
+import { createTodo } from "@/api/todo";
+import useFocus from "@/hooks/useFocus";
+import { RecommendedDataType, todosType } from "@/types/todos";
+import { getSearchRecommendTodos } from "@/api/search";
+import { SearchRecomendedBox } from "./SearchRecomendedBox";
 
-import { createTodo } from "../api/todo";
-import useFocus from "../hooks/useFocus";
-
-type todosType = {
-  id: number;
-  title: string;
-};
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<todosType[]>>;
 };
@@ -15,6 +13,8 @@ type InputTodoProps = {
 const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [recommendedData, setRecommendedData] = useState<RecommendedDataType>();
+  const [isClose, setIsClose] = useState(true);
   const { ref, setFocus } = useFocus();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         const { data } = await createTodo(newItem);
 
         if (data) {
-          return setTodos((prev: any) => [...prev, data]);
+          return setTodos((prev: todosType[]) => [...prev, data]);
         }
       } catch (error) {
         console.error(error);
@@ -49,6 +49,13 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     [inputText, setTodos]
   );
 
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const word = e.target.value;
+    setInputText(word);
+    const { data } = await getSearchRecommendTodos(word);
+    setRecommendedData(data);
+  };
+
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <input
@@ -56,7 +63,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        onChange={handleInputChange}
         disabled={isLoading}
       />
       {!isLoading ? (
@@ -65,6 +72,9 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         </button>
       ) : (
         <FaSpinner className="spinner" />
+      )}
+      {recommendedData && (
+        <SearchRecomendedBox inputText={inputText} data={recommendedData} />
       )}
     </form>
   );

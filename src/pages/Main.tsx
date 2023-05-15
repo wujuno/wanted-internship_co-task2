@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import InputTodo from "../components/InputTodo";
-import { getTodoList } from "../api/todo";
-import Header from "../components/Header";
-import TodoList from "../components/TodoList";
+import InputTodo from "@/components/InputTodo";
+import { getTodoList } from "@/api/todo";
+import Header from "@/components/Header";
+import TodoList from "@/components/TodoList";
 
 type todosType = {
   id: number;

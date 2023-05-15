@@ -1,9 +1,6 @@
+import { todosType } from "@/types/todos";
 import TodoItem from "./TodoItem";
 
-type todosType = {
-  id: number;
-  title: string;
-};
 type TodoListProps = {
   todos: todosType[];
   setTodos: React.Dispatch<React.SetStateAction<todosType[]>>;

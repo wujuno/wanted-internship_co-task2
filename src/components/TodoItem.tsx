@@ -1,12 +1,9 @@
 import { FaSpinner, FaTrash } from "react-icons/fa";
 import { useCallback, useState } from "react";
 
-import { deleteTodo } from "../api/todo";
+import { deleteTodo } from "@/api/todo";
+import { todosType } from "@/types/todos";
 
-type todosType = {
-  id: number;
-  title: string;
-};
 type TodoItemProps = {
   id: number;
   title: string;
