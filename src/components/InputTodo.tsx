@@ -54,7 +54,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const word = e.target.value;
     setInputText(word);
-    const { data } = await getSearchRecommendTodos(debouncedInputText);
+    const { data } = await getSearchRecommendTodos(word);
     setRecommendedData(data);
   };
 
@@ -75,7 +75,12 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       ) : (
         <FaSpinner className="spinner" />
       )}
-      {recommendedData && <SearchRecomendedBox data={recommendedData} />}
+      {recommendedData && (
+        <SearchRecomendedBox
+          recommendedData={recommendedData}
+          setRecommendedData={setRecommendedData}
+        />
+      )}
     </form>
   );
 };

@@ -2,13 +2,12 @@ import apiRequest from ".";
 
 const RESOURCE = "/search";
 
-const PAGE = 1;
 const LIMIT = 10;
 
-export const getSearchRecommendTodos = async (keyword: string) => {
+export const getSearchRecommendTodos = async (keyword: string, page = 1) => {
   try {
     const response = await apiRequest.get(
-      `${RESOURCE}?q=${keyword}&page=${PAGE}&limit=${LIMIT}`
+      `${RESOURCE}?q=${keyword}&page=${page}&limit=${LIMIT}`
     );
 
     return response;

@@ -1,29 +1,45 @@
-import { RecommendedDataType } from "@/types/todos";
+import { useRef } from "react";
 import { FaSpinner, FaEllipsisH } from "react-icons/fa";
 
 type BottomItemProps = {
-  data: RecommendedDataType;
-  scrollEnd: boolean;
+  showedResults: string[];
+  totalResults: number;
+  isLoading: boolean;
 };
-const NONE = 0;
 
-export const BottomItem: React.FC<BottomItemProps> = ({ data, scrollEnd }) => {
-  const { qty: showedResults, total: totalResults } = data;
-  const hasResult = showedResults !== NONE;
-  const hasMore = showedResults < totalResults;
+export const BottomItem: React.FC<BottomItemProps> = ({
+  showedResults,
+  totalResults,
+  isLoading,
+}) => {
+  const hasResult = showedResults.length !== 0;
+  const hasMore = showedResults.length < totalResults;
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  };
 
   return (
     <>
       {hasResult ? (
         hasMore ? (
-          scrollEnd ? (
+          isLoading ? (
             <FaSpinner className="spinner" />
           ) : (
             <FaEllipsisH className="ellipsis" />
           )
-        ) : null
+        ) : (
+          <button onClick={handleButtonClick}>
+            추천 검색어가 더 이상 없습니다.
+          </button>
+        )
       ) : (
-        <p>일치하는 검색어가 없습니다.</p>
+        <button>일치하는 검색어가 없습니다.</button>
       )}
     </>
   );

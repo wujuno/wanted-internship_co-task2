@@ -1,16 +1,17 @@
-import { RecommendedDataType } from "@/types/todos";
 import { RecommendItem } from "./RecommendItem";
 
 type RecommendedListProps = {
-  data: RecommendedDataType;
+  showedResults: string[];
+  keyword: string;
 };
 
-export const RecommendedList: React.FC<RecommendedListProps> = ({ data }) => {
-  const { result: recommendedResults, q: keyword } = data;
-
+export const RecommendedList: React.FC<RecommendedListProps> = ({
+  showedResults,
+  keyword,
+}) => {
   return (
     <>
-      {recommendedResults.map((result, index) => (
+      {showedResults.map((result, index) => (
         <RecommendItem key={index} text={result} keyword={keyword} />
       ))}
     </>
