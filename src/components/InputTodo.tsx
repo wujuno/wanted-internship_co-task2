@@ -5,6 +5,7 @@ import useFocus from "@/hooks/useFocus";
 import { RecommendedDataType, todosType } from "@/types/todos";
 import { getSearchRecommendTodos } from "@/api/search";
 import { SearchRecomendedBox } from "./SearchRecomendedBox";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<todosType[]>>;
@@ -16,6 +17,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [recommendedData, setRecommendedData] = useState<RecommendedDataType>();
   const [isClose, setIsClose] = useState(true);
   const { ref, setFocus } = useFocus();
+  const debouncedInputText = useDebounce(inputText);
 
   useEffect(() => {
     setFocus();
@@ -52,7 +54,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const word = e.target.value;
     setInputText(word);
-    const { data } = await getSearchRecommendTodos(word);
+    const { data } = await getSearchRecommendTodos(debouncedInputText);
     setRecommendedData(data);
   };
 
@@ -74,7 +76,10 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         <FaSpinner className="spinner" />
       )}
       {recommendedData && (
-        <SearchRecomendedBox inputText={inputText} data={recommendedData} />
+        <SearchRecomendedBox
+          debouncedInputText={debouncedInputText}
+          data={recommendedData}
+        />
       )}
     </form>
   );
