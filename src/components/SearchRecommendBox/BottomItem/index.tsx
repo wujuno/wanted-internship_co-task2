@@ -28,9 +28,9 @@ export const BottomItem: React.FC<BottomItemProps> = ({
       {hasResult ? (
         hasMore ? (
           isLoading ? (
-            <FaSpinner className="spinner" />
+            <FaSpinner className="spinner bottom_icon" />
           ) : (
-            <FaEllipsisH className="ellipsis" />
+            <FaEllipsisH className="ellipsis bottom_icon" />
           )
         ) : (
           <button onClick={handleButtonClick}>
@@ -41,8 +41,8 @@ export const BottomItem: React.FC<BottomItemProps> = ({
         )
       ) : (
         <button
+          className="notmatch_message"
           onClick={(e) => e.preventDefault()}
-          style={{ cursor: "inherit" }}
         >
           일치하는 추천 검색어가 없습니다.
         </button>
