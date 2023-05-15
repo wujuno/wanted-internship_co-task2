@@ -319,10 +319,7 @@ body {
 }
 .recommend_container .bottom_icon {
   width: 100%;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: x-large;
 }
 
 .highlight-text {
