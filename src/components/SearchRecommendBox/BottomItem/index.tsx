@@ -34,11 +34,18 @@ export const BottomItem: React.FC<BottomItemProps> = ({
           )
         ) : (
           <button onClick={handleButtonClick}>
-            추천 검색어가 더 이상 없습니다.
+            <span>
+              추천 검색어가 더 이상 없습니다. (클릭 시 상단으로 이동합니다.)
+            </span>
           </button>
         )
       ) : (
-        <p>일치하는 검색어가 없습니다.</p>
+        <button
+          onClick={(e) => e.preventDefault()}
+          style={{ cursor: "inherit" }}
+        >
+          일치하는 추천 검색어가 없습니다.
+        </button>
       )}
     </>
   );
