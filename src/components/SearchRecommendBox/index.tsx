@@ -65,6 +65,7 @@ export const SearchRecomendedBox: React.FC<SearchRecomendedBoxProps> = ({
         showedResults={showedResults}
         totalResults={totalResults}
         isLoading={isLoading}
+        scrollRef={scrollRef}
       />
     </div>
   );

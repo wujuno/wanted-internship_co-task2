@@ -1,21 +1,20 @@
-import { useRef } from "react";
 import { FaSpinner, FaEllipsisH } from "react-icons/fa";
 
 type BottomItemProps = {
   showedResults: string[];
   totalResults: number;
   isLoading: boolean;
+  scrollRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 export const BottomItem: React.FC<BottomItemProps> = ({
   showedResults,
   totalResults,
   isLoading,
+  scrollRef,
 }) => {
   const hasResult = showedResults.length !== 0;
   const hasMore = showedResults.length < totalResults;
-
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -39,7 +38,7 @@ export const BottomItem: React.FC<BottomItemProps> = ({
           </button>
         )
       ) : (
-        <button>일치하는 검색어가 없습니다.</button>
+        <p>일치하는 검색어가 없습니다.</p>
       )}
     </>
   );
