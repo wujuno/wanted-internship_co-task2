@@ -4,8 +4,8 @@ import { createTodo } from "@/api/todo";
 import useFocus from "@/hooks/useFocus";
 import { RecommendedDataType, todosType } from "@/types/todos";
 import { getSearchRecommendTodos } from "@/api/search";
-import { SearchRecomendedBox } from "./SearchRecomendedBox";
 import { useDebounce } from "@/hooks/useDebounce";
+import { SearchRecomendedBox } from "./SearchRecommendBox";
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<todosType[]>>;

@@ -1,5 +1,5 @@
 import { RecommendedDataType } from "@/types/todos";
-import { getHilgthedText } from "@/utils/todos";
+import { RecommendedList } from "./RecommendedList";
 
 type SearchRecomendedBoxProps = {
   data: RecommendedDataType;
@@ -12,11 +12,7 @@ export const SearchRecomendedBox: React.FC<SearchRecomendedBoxProps> = ({
 }) => {
   return (
     <div className="recommend_container">
-      {data.result.map((list) => (
-        <button onClick={(e) => e.preventDefault()}>
-          <p>{getHilgthedText(list, debouncedInputText)}</p>
-        </button>
-      ))}
+      <RecommendedList data={data} debouncedInputText={debouncedInputText} />
       <div>...</div>
     </div>
   );
