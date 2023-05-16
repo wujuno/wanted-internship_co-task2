@@ -1,6 +1,3 @@
-import { getSearchRecommendTodos } from "@/api/search";
-import { RecommendedDataType } from "@/types/todos";
-
 export const getHilgthedText = (words: string, inputText: string) => {
   if (!inputText) {
     return words;
