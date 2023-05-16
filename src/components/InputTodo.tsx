@@ -15,7 +15,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [recommendedData, setRecommendedData] = useState<RecommendedDataType>();
-  const [isClose, setIsClose] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { ref, setFocus } = useFocus();
   const debouncedInputText = useDebounce(inputText);
 
@@ -47,12 +47,14 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       } finally {
         setInputText("");
         setIsLoading(false);
+        setIsOpen(false);
       }
     },
     [inputText, setTodos]
   );
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsOpen(true);
     const word = e.target.value;
     setInputText(word);
     const { data } = await getSearchRecommendTodos(word);
@@ -60,7 +62,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   };
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
+    <form
+      className="form-container"
+      onSubmit={handleSubmit}
+      onBlur={() => setIsOpen(false)}
+    >
       <input
         className="input-text"
         placeholder="Add new todo..."
@@ -76,7 +82,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       ) : (
         <FaSpinner className="spinner" />
       )}
-      {recommendedData && (
+      {isOpen && recommendedData && (
         <SearchRecomendedBox
           recommendedData={recommendedData}
           setRecommendedData={setRecommendedData}

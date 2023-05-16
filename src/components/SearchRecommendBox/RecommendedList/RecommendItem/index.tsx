@@ -12,7 +12,6 @@ export const RecommendItem: React.FC<RecommendItemProps> = ({
   setInputText,
 }) => {
   const handleClick = () => {
-    //TODO: context API 로 전역상태 구현
     setInputText(text);
   };
   return (
