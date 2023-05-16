@@ -1,3 +1,6 @@
+import { getSearchRecommendTodos } from "@/api/search";
+import { RecommendedDataType } from "@/types/todos";
+
 export const getHilgthedText = (words: string, inputText: string) => {
   if (!inputText) {
     return words;
@@ -13,4 +16,17 @@ export const getHilgthedText = (words: string, inputText: string) => {
       match
     )
   );
+};
+
+export const shouldLoadMoreData = (
+  showedResults: string[],
+  totalResults: number,
+  scrollEnd: boolean,
+  isLoading: boolean
+): boolean => {
+  const hasReachedEnd = scrollEnd;
+  const isNotLoading = !isLoading;
+  const hasMoreData = showedResults.length !== totalResults;
+
+  return hasReachedEnd && isNotLoading && hasMoreData;
 };
